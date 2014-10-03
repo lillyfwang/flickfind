@@ -1,5 +1,6 @@
 body{
-	background: white;
+	font-family: 'Oxygen', sans-serif;
+	background: #FEFEFE;
 }
 
 a{
@@ -13,8 +14,52 @@ a:hover{
 }
 
 img{
-	height: 100%;
-	width: auto;
+  width: auto;
+  height: auto;
+  max-height: 100%;
+}
+
+button{
+	border-radius: 10px;
+	background-color: white;
+	color: #2D4454;
+	border: 1px #2D4454 solid;
+	outline: none;
+}
+
+button:hover{
+	background-color: #2D4454;
+	color: white;
+}
+
+div.ui-datepicker{
+ font-size:.9em;
+}
+
+.ui-state-default{
+	background: white;
+	border: none;
+	border-bottom: 1px #2D4454 dotted;
+	border-radius: 0;
+	outline: none;
+	color: #2D4454;
+}
+
+.ui-state-active{
+	background-color: #2D4454;
+	color: white;
+	outline: none;
+}
+
+.ui-accordion-content{
+	background: rgba(255,255,255,.85);
+	border: none;
+	border-radius: 0;
+}
+
+.ui-accordion, .ui-accordion-header{
+	font-family: 'Oxygen', sans-serif;
+	margin: 0;
 }
 
 .pagination{
@@ -33,7 +78,6 @@ img{
 
 .information-hidden{
   position: absolute;
-  font-family: 'Oxygen', sans-serif;
   font-size: 1.5em;
   width: 100%;
   height: 100%;
@@ -52,12 +96,37 @@ img{
   opacity: 1;
 }
 
+#navbar{
+	width: 100%;
+	position: fixed;
+	top: 0;
+	z-index: 100;
+}
 
 #photos-wrapper{
-	width: 80%;
+	margin-top: 5%;
+	width: 85%;
 }
 
 #page-wrapper{
-	position: fixed;
+	bottom: 5%;
 	right: 5%;
+	position: fixed;
+}
+
+#forward{
+	margin-top: 5%;
+}
+
+#search-terms div{
+	display: inline-block;
+	margin: 3px;
+}
+
+#intro{
+	font-family: 'Pacifico', cursive;
+	font-size: 4em;
+	text-align: center;
+	width: 115%;
+	margin-top: 20%;
 }

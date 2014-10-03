@@ -8,6 +8,23 @@ var flickr = new Flickr({
 $(document).ready(function(){
 	$( "#upsince" ).datepicker();
 	$( "#upuntil" ).datepicker();
+	$(function() {
+	    $( "#navbar" ).accordion({
+	      collapsible: true,
+	      active: false,
+	      heightStyle: "content"
+	    });
+	  });
+	$('#search-bar').keypress(function(e){
+        if(e.which == 13){
+            $('#submit').click();
+        }
+    });
+    $('#username').keypress(function(e){
+        if(e.which == 13){
+            $('#submit').click();
+        }
+    });
 	$( window ).resize(function() {
 	  $( ".col-m-4" ).css("height", $( ".col-m-4" ).width());
 	  $( ".col-sm-6" ).css("height", $( ".col-sm-6" ).width());
@@ -30,6 +47,7 @@ function readForm(){
 		findPhotos(search_terms);
 	}
 	checkPagination();
+	$( "#navbar" ).accordion( "option", "active", "false" );
 }
 
 function nextPage(){
@@ -47,7 +65,9 @@ function getUserID(username){
 	id["username"] = username;
 	flickr.people.findByUsername(id, function(err, result){
 		if(err){
-			console.log("username error");
+			$('#photos').html('<div id="intro">FlickFind<br>'
+				+'<span style="font-family: Oxygen, sans-serif; font-size: .5em; color: #8C0000">Invalid Username</span></div>');
+			$(error).appendTo('#photos')
 		} else {
 			search_terms["user_id"] = result.user.nsid;
 			findPhotos(search_terms);
@@ -85,7 +105,7 @@ function findPhotos(search_terms){
 	$('#photos').html("");
 	flickr.photos.search(search_terms, function(err, result) {
 		if(err) {
-			console.log("photos error");
+			$('#photos').html('<div id="intro">FlickFind</div>');
 		} else {
 			total_pages = result.photos.total;
 			var photo = result.photos.photo;
@@ -122,4 +142,3 @@ function checkPagination(){
 		$("#forward").css("display", "none");
 	}
 }
-

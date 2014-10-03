@@ -7,26 +7,30 @@
 	<link rel="stylesheet" type="text/css" href="assets/jquery-ui/jquery-ui.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 	<link href='http://fonts.googleapis.com/css?family=Oxygen:300' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
 
 <body>
-	<form>
-		Search: <input type="text" id="search-bar">
-		Username: <input type="text" id="username">
-		Uploaded Since: <input type="text" id="upsince">
-		Uploaded Until: <input type="text" id="upuntil">
-		<button type="button" onClick="readForm();">Find Photos!</button>
-	</form>
+	<div id="navbar">
+		<h1>Search Photos</h1>
+		<form id= "search-terms">
+			<div>Search: <input type="text" id="search-bar"></div>
+			<div>Username: <input type="text" id="username"></div>
+			<div>Uploaded Since: <input type="text" id="upsince"></div>
+			<div>Uploaded Until: <input type="text" id="upuntil"></div>
+			<div><button id = "submit" type="button" onClick="readForm();">Find Photos!</button></div>
+		</form>
+	</div>
 
 	<div id = "page-wrapper">
-		<button id="forward" type="button" onclick="nextPage();">>></button>
 		<button id="back" type="button" onclick="prevPage();"><<</button>
+		<button id="forward" type="button" onclick="nextPage();">>></button>
 	</div>
 
 
 	<div id = "photos-wrapper">
-		<div id="photos"></div>
+		<div id="photos"><div id="intro">FlickFind</div></div>
 	</div>	
 </body>
 
