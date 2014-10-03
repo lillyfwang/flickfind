@@ -1,4 +1,5 @@
 var pagination = 1;
+var total_pages = 0;
 var search_terms = {};
 var flickr = new Flickr({
 		api_key: "7e068b89b2a42d5f9b92841ddb7fdd02"
@@ -6,23 +7,29 @@ var flickr = new Flickr({
 
 $(document).ready(function(){
 	$( "#upsince" ).datepicker();
-	$( "#upuntill" ).datepicker();
-	$( "#photos" ).masonry('bindResize')
+	$( "#upuntil" ).datepicker();
+	$( window ).resize(function() {
+	  $( ".col-m-4" ).css("height", $( ".col-m-4" ).width());
+	  $( ".col-sm-6" ).css("height", $( ".col-sm-6" ).width());
+	});
+	checkPagination();
 });
 
 function readForm(){
 	pagination = 1;
+	total_pages=0;
 	search_terms = {};
 	search_terms["text"] = document.getElementById('search-bar').value.replace(/\s/g, '+');
 	search_terms["min_upload_date"] = document.getElementById('upsince').value;
 	search_terms["max_upload_date"] = document.getElementById('upuntil').value;
-	search_terms["per_page"] = '10';
+	search_terms["per_page"] = '9';
 	if (document.getElementById('username').value.length>0) {
 		getUserID(document.getElementById('username').value);
 	}
 	else {
 		findPhotos(search_terms);
 	}
+	checkPagination();
 }
 
 function nextPage(){
@@ -31,10 +38,8 @@ function nextPage(){
 }
 
 function prevPage(){
-	if (pagination > 1){
-		pagination--;
-		findPhotos(search_terms);
-	}
+	pagination--;
+	findPhotos(search_terms);
 }
 
 function getUserID(username){
@@ -82,6 +87,7 @@ function findPhotos(search_terms){
 		if(err) {
 			console.log("photos error");
 		} else {
+			total_pages = result.photos.total;
 			var photo = result.photos.photo;
 			$.each(photo, function(i,item){
 				getUsername(item);
@@ -93,18 +99,27 @@ function findPhotos(search_terms){
 function displayPhotos(item, name){
 	var photoID = item.id;
 	var username = name;
-	var photoURL = 'http://farm'+item.farm+'.static.flickr.com/'+item.server+'/'+item.id+'_'+item.secret+'_n.jpg'
-	var imgCont = '<div class="flickr-image">'+'<div class="information-hidden"><a class="title"'
-		+'href="http://www.flickr.com/photos/'+ item.owner + '/' + photoID + '">' + item.title.substr(0,15) + '...</a>'
-		+'<br><span class="owner"><a href="http://flickr.com/photos/' + item.owner + '">'+ username
+	var photoURL = 'http://farm'+item.farm+'.static.flickr.com/'+item.server+'/'+item.id+'_'+item.secret+'_z.jpg'
+	var imgCont = '<div class="col-xs-12 col-sm-6 col-md-4 flickr-image">'+'<div class="information-hidden"><a class="title"'
+		+'href="http://www.flickr.com/photos/'+ item.owner + '/' + photoID + '">"' + item.title.substr(0,20) + '..."</a>'
+		+'<br><span class="owner"><i>by</i><br><a href="http://flickr.com/photos/' + item.owner + '">'+ username
 		+ '</a></span></div><img src="' + photoURL + '"></div>';
 	$(imgCont).appendTo('#photos');
-	$('#photos').masonry({
-	  columnWidth: 320,
-	  itemSelector: '.flickr-image'
-	});
+	$( ".col-m-4" ).css("height", $( ".col-m-4" ).width());
+	$( ".col-sm-6" ).css("height", $( ".col-sm-6" ).width());
+	checkPagination();
 }
 
-
-
+function checkPagination(){
+	if (pagination <= 1) {
+		$("#back").css("display", "none");
+	} else {
+		$("#back").css("display", "block");
+	}
+	if (pagination < total_pages){
+		$("#forward").css("display", "block");
+	} else {
+		$("#forward").css("display", "none");
+	}
+}
 
