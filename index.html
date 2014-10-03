@@ -1,0 +1,23 @@
+<head>
+	<script type="text/javascript" src="assets/js/jquery.min.js"></script>
+	<script type="text/javascript" src="assets/jquery-ui/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="assets/flickrapi/browser/flickrapi.js"></script>
+	<script type="text/javascript" src="assets/js/masonry.min.js"></script>
+	<script type="text/javascript" src="assets/js/script.js"></script>
+	<link rel="stylesheet" type="text/css" href="assets/jquery-ui/jquery-ui.min.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+</head>
+
+<body>
+	<form>
+		Search: <input type="text" id="search-bar">
+		Username: <input type="text" id="username">
+		Uploaded Since: <input type="text" id="upsince">
+		Uploaded Until: <input type="text" id="upuntil">
+		<button type="button" onClick="readForm();">Find Photos!</button>
+	</form>
+	<div id="photos"></div>
+	<button class="pagination"type="button" onclick="prevPage();"><<</button>
+	<button class="pagination"type="button" onclick="nextPage();">>></button>
+</body>
+
